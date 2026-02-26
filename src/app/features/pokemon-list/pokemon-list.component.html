@@ -1,0 +1,33 @@
+<h1>:: Pokémon API Demo ::</h1>
+    
+    <div class="button-group">
+      <button (click)="onLoadRandomPokemon()">Cargar Pokémones</button>
+      <button (click)="onSearchPikachu()">Buscar Pikachu</button>
+    </div>
+
+    @if (state().pokemon) {
+      <div class="pokemon-card">
+        <h2>{{ formatName(state().pokemon!.name) }}</h2>
+        <img 
+          [src]="state().pokemon!.sprites.front_default" 
+          [alt]="state().pokemon!.name"
+          width="200" height="200"
+        />
+        <p><strong>ID:</strong> {{ state().pokemon!.id }}</p>
+        <p><strong>Altura:</strong> {{ convertHeight(state().pokemon!.height) }} m</p>
+        <p><strong>Peso:</strong> {{ convertWeight(state().pokemon!.weight) }} kg</p>
+        <p><strong>Tipos:</strong>
+          @for (type of state().pokemon!.types; track type.type.name) {
+            <span class="type-badge">{{ type.type.name }}</span>
+          }
+        </p>
+      </div>
+    }
+
+    @if (state().loading) {
+      <p class="loading">Buscando Pokémon...</p>
+    }
+
+    @if (state().error) {
+      <p class="error">{{ state().error }}</p>
+    }
