@@ -1,27 +1,52 @@
 <h1>:: Pokémon API Demo ::</h1>
     
-    <div class="button-group">
-      <button (click)="onLoadRandomPokemon()">Cargar Pokémones</button>
-      <button (click)="onSearchPikachu()">Buscar Pikachu</button>
-    </div>
+    @if (!state().showDetails) {
+      <div class="button-group">
+        <button (click)="onLoadRandomPokemon()">Cargar Pokémones</button>
+        <button (click)="onSearchPikachu()">Buscar Pikachu</button>
+      </div>
+    }
 
     @if (state().pokemon) {
-      <div class="pokemon-card">
-        <h2>{{ formatName(state().pokemon!.name) }}</h2>
-        <img 
-          [src]="state().pokemon!.sprites.front_default" 
-          [alt]="state().pokemon!.name"
-          width="200" height="200"
-        />
-        <p><strong>ID:</strong> {{ state().pokemon!.id }}</p>
-        <p><strong>Altura:</strong> {{ convertHeight(state().pokemon!.height) }} m</p>
-        <p><strong>Peso:</strong> {{ convertWeight(state().pokemon!.weight) }} kg</p>
-        <p><strong>Tipos:</strong>
-          @for (type of state().pokemon!.types; track type.type.name) {
-            <span class="type-badge">{{ type.type.name }}</span>
+      <div style="display: flex; justify-content: center; align-items: center; background-color: brown; padding: 30px;">
+        <div class="pokemon-card" [class.expanded]="state().showDetails">
+          <h2>{{ formatName(state().pokemon!.name) }}</h2>
+          <img 
+            [src]="state().pokemon!.sprites.front_default" 
+            [alt]="state().pokemon!.name"
+            width="200" height="200"
+          />
+          <p><strong>ID:</strong> {{ state().pokemon!.id }}</p>
+          <p><strong>Altura:</strong> {{ convertHeight(state().pokemon!.height) }} m</p>
+          <p><strong>Peso:</strong> {{ convertWeight(state().pokemon!.weight) }} kg</p>
+          <p><strong>Tipos:</strong>
+            @for (type of state().pokemon!.types; track type.type.name) {
+              <span class="type-badge">{{ type.type.name }}</span>
+            }
+          </p>
+          <button (click)="detailsPokemon()">
+            {{ state().showDetails ? 'Ver menos' : 'Ver detalles' }}
+          </button>
+          @if (state().showDetails) {
+            <div class="show-details">
+              <h2>Habilidades:</h2>
+              <ul>
+                @for (ability of state().pokemon!.abilities; track ability.ability.name) {
+                  <p>{{ ability.ability.name }}</p>
+                }
+              </ul>
+            </div>
           }
-        </p>
+        </div>
       </div>
+        @if (!state().showDetails) {
+        <div class="button-group">
+          <button (click)="firstPokemon()">Primero</button>
+          <button (click)="onLoadPokemonInOrderBefore()">Anterior</button>
+          <button (click)="onLoadPokemonInOrderAfter()">Siguiente</button>
+          <button (click)="endPokemon()">Último</button>
+        </div>
+      }
     }
 
     @if (state().loading) {

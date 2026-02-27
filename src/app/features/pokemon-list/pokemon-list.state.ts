@@ -4,10 +4,12 @@ export interface PokemonListState {
   pokemon: Pokemon | null;
   loading: boolean;
   error: string | null;
+  showDetails: boolean;
 }
 
 export const INITIAL_POKEMON_LIST_STATE: PokemonListState = {
   pokemon: null,
   loading: false,
-  error: null
+  error: null,
+  showDetails: false
 };

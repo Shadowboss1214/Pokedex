@@ -2,7 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { PokemonDataService } from '../../data/services';
-import { Pokemon } from '../../shared/models';
+import { Pokemon, PokeAPIResponse } from '../../shared/models';
 import { 
   convertHeightToMeters, 
   convertWeightToKilograms,
@@ -36,8 +36,37 @@ export class PokemonListComponent implements OnInit {
     this.loadPokemon(() => this.pokemonDataService.getPokemonById(randomId));
   }
 
+  onLoadPokemonInOrderAfter(): void {
+    const currentId = this.state().pokemon?.id ?? 1;
+    const maxOfficialId = 1025;
+    const nextId = (currentId + 1) % maxOfficialId || 1;
+    this.loadPokemon(() => this.pokemonDataService.getPokemonById(nextId));
+  }
+
+  onLoadPokemonInOrderBefore(): void {
+    const currentId = this.state().pokemon?.id ?? 1;
+    const maxOfficialId = 1025;
+    const previousId = (currentId - 1) % maxOfficialId || maxOfficialId;
+    this.loadPokemon(() => this.pokemonDataService.getPokemonById(previousId));
+  }
+
+  firstPokemon(): void {
+    this.loadPokemon(() => this.pokemonDataService.getPokemonById(1));
+  }
+
+  endPokemon(): void {
+    this.loadPokemon(() => this.pokemonDataService.getPokemonById(1025));
+  }
+
   onSearchPikachu(): void {
     this.loadPokemon(() => this.pokemonDataService.getPokemonByName('pikachu'));
+  }
+
+  detailsPokemon(): void {
+    this.state.update(s => ({
+      ...s,
+      showDetails: !s.showDetails
+    }));
   }
 
   private loadPokemon(request: () => Observable<Pokemon>): void {
@@ -52,7 +81,8 @@ export class PokemonListComponent implements OnInit {
         this.state.set({
           pokemon,
           loading: false,
-          error: null
+          error: null,
+          showDetails: false
         });
       },
       error: (err: any) => {

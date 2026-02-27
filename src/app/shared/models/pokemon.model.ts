@@ -1,33 +1,45 @@
 // Saacado del POF
 export interface PokemonType {
-  name: string; // [cite: 49]
+  name: string;
 }
 
 export interface PokemonTypeWrapper {
-  type: PokemonType; // [cite: 52]
+  type: PokemonType;
 }
 
 export interface PokemonSprites {
-  front_default: string; // [cite: 55]
+  front_default: string;
 }
 
 export interface Pokemon {
-  id: number; // [cite: 58]
-  name: string; // [cite: 59]
-  sprites: PokemonSprites; // [cite: 60]
-  types: PokemonTypeWrapper[]; // [cite: 61]
-  height: number; // [cite: 62]
-  weight: number; // [cite: 63]
+  id: number;
+  name: string;
+  sprites: PokemonSprites;
+  types: PokemonTypeWrapper[];
+  height: number;
+  weight: number;
+  abilities: {
+    ability: {
+      name: string;
+    };
+  }[];
 }
 
 export interface PokemonListItem {
-  name: string; // [cite: 66]
-  url: string; // [cite: 67]
+  name: string;
+  url: string;
 }
 
 export interface PokemonList {
-  count: number; // [cite: 70]
-  next: string | null; // [cite: 71]
-  previous: string | null; // [cite: 72]
-  results: PokemonListItem[]; // [cite: 73]
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: PokemonListItem[];
+}
+
+export interface PokeAPIResponse {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: any[];
 }
