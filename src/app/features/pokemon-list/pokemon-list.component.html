@@ -30,11 +30,9 @@
           @if (state().showDetails) {
             <div class="show-details">
               <h2>Habilidades:</h2>
-              <ul>
                 @for (ability of state().pokemon!.abilities; track ability.ability.name) {
                   <p>{{ ability.ability.name }}</p>
                 }
-              </ul>
             </div>
           }
         </div>
