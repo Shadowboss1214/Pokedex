@@ -1,56 +1,96 @@
-<h1>:: Pokémon API Demo ::</h1>
-    
-    @if (!state().showDetails) {
-      <div class="button-group">
-        <button (click)="onLoadRandomPokemon()">Cargar Pokémones</button>
-        <button (click)="onSearchPikachu()">Buscar Pikachu</button>
-      </div>
-    }
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<div class="container py-5">
+  <h1 class="text-center mb-4 display-4 text-primary fw-bold">:: Pokémon API Demo ::</h1>
+  
+  @if (!state().showDetails) {
+    <div class="d-flex justify-content-center gap-2 mb-4">
+      <button class="btn btn-primary shadow-sm" (click)="onLoadRandomPokemon()">
+        <i class="bi bi-shuffle"></i> Cargar Aleatorio
+      </button>
+      <button class="btn btn-warning shadow-sm" (click)="onSearchPikachu()">
+        <i class="bi bi-search"></i> Buscar Pikachu
+      </button>
+    </div>
+  }
 
-    @if (state().pokemon) {
-      <div style="display: flex; justify-content: center; align-items: center; background-color: brown; padding: 30px;">
-        <div class="pokemon-card" [class.expanded]="state().showDetails">
-          <h2>{{ formatName(state().pokemon!.name) }}</h2>
+  @if (state().pokemon) {
+    <div class="d-flex justify-content-center">
+      <div class="card shadow-lg border-0" [style.width]="state().showDetails ? '500px' : '350px'" style="transition: all 0.3s ease;">
+        
+        <div class="card-header bg-dark text-white text-center">
+          <h2 class="mb-0 text-capitalize">{{ formatName(state().pokemon!.name) }}</h2>
+        </div>
+
+        <div class="card-body text-center">
           <img 
             [src]="state().pokemon!.sprites.front_default" 
             [alt]="state().pokemon!.name"
-            width="200" height="200"
+            class="img-fluid mb-3"
+            style="width: 180px; filter: drop-shadow(2px 4px 6px black);"
           />
-          <p><strong>ID:</strong> {{ state().pokemon!.id }}</p>
-          <p><strong>Altura:</strong> {{ convertHeight(state().pokemon!.height) }} m</p>
-          <p><strong>Peso:</strong> {{ convertWeight(state().pokemon!.weight) }} kg</p>
-          <p><strong>Tipos:</strong>
+          
+          <div class="mb-3">
+            <span class="badge bg-secondary me-1 fs-6">ID: #{{ state().pokemon!.id }}</span>
+          </div>
+
+          <div class="row text-start mb-3">
+            <div class="col-6"><strong>Altura:</strong> {{ convertHeight(state().pokemon!.height) }} m</div>
+            <div class="col-6"><strong>Peso:</strong> {{ convertWeight(state().pokemon!.weight) }} kg</div>
+          </div>
+
+          <p class="text-start">
+            <strong>Tipos:</strong><br>
             @for (type of state().pokemon!.types; track type.type.name) {
-              <span class="type-badge">{{ type.type.name }}</span>
+              <span class="badge rounded-pill bg-info text-dark me-1 text-capitalize">{{ type.type.name }}</span>
             }
           </p>
-          <button (click)="detailsPokemon()">
-            {{ state().showDetails ? 'Ver menos' : 'Ver detalles' }}
+
+          <button class="btn w-100" 
+                  [ngClass]="state().showDetails ? 'btn-outline-danger' : 'btn-outline-primary'"
+                  (click)="detailsPokemon()">
+            {{ state().showDetails ? 'Ver menos' : 'Ver detalles completos' }}
           </button>
+
           @if (state().showDetails) {
-            <div class="show-details">
-              <h2>Habilidades:</h2>
+            <div class="mt-4 p-3 bg-light rounded text-start shadow-inner border border-warning">
+              <h4 class="text-warning border-bottom border-warning pb-1">Habilidades:</h4>
+              <ul class="list-group list-group-flush bg-transparent">
                 @for (ability of state().pokemon!.abilities; track ability.ability.name) {
-                  <p>{{ ability.ability.name }}</p>
+                  <li class="list-group-item bg-transparent text-capitalize border-0">
+                    <i class="bi bi-lightning-fill text-warning me-2"></i>{{ ability.ability.name }}
+                  </li>
                 }
+              </ul>
             </div>
           }
         </div>
       </div>
-        @if (!state().showDetails) {
-        <div class="button-group">
-          <button (click)="firstPokemon()">Primero</button>
-          <button (click)="onLoadPokemonInOrderBefore()">Anterior</button>
-          <button (click)="onLoadPokemonInOrderAfter()">Siguiente</button>
-          <button (click)="endPokemon()">Último</button>
-        </div>
-      }
-    }
+    </div>
 
-    @if (state().loading) {
-      <p class="loading">Buscando Pokémon...</p>
+    @if (!state().showDetails) {
+      <div class="d-flex justify-content-center gap-2 mt-4">
+        <button class="btn btn-outline-dark btn-sm" (click)="firstPokemon()">Primero</button>
+        <button class="btn btn-secondary" (click)="onLoadPokemonInOrderBefore()">Anterior</button>
+        <button class="btn btn-secondary" (click)="onLoadPokemonInOrderAfter()">Siguiente</button>
+        <button class="btn btn-outline-dark btn-sm" (click)="endPokemon()">Último</button>
+      </div>
     }
+  }
 
-    @if (state().error) {
-      <p class="error">{{ state().error }}</p>
-    }
+  @if (state().loading) {
+    <div class="text-center mt-4">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+      <p class="mt-2 fw-bold">Buscando Pokémon en la hierba alta...</p>
+    </div>
+  }
+
+  @if (state().error) {
+    <div class="alert alert-danger mt-4 text-center shadow" role="alert">
+      <strong>¡Error!</strong> {{ state().error }}
+    </div>
+  }
+</div>
