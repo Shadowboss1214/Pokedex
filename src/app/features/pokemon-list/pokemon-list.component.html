@@ -12,8 +12,152 @@
       <button class="btn btn-warning shadow-sm" (click)="onSearchPikachu()">
         <i class="bi bi-search"></i> Buscar Pikachu
       </button>
-    </div>
+    </div>  
   }
+    <form (ngSubmit)="onSearchPokemon()" class="search-form"> 
+      <div class="search-input-group"> 
+        <input  
+          type="text"  
+          [(ngModel)]="searchPokemonName"  
+          name="pokemonName" 
+          placeholder="Ingresa el nombre del Pokémon" 
+          class="search-input" 
+        /> 
+        <button type="submit" class="search-button">Buscar</button> 
+      </div> 
+    </form>
+    <form [formGroup]="advancedSearchForm" (ngSubmit)="onSubmitAdvancedSearch()" 
+      class="advanced-search-form"> 
+        <h3>Búsqueda Avanzada</h3> 
+        
+        <div class="form-group"> 
+          <label> 
+            <input  
+              type="radio"  
+              formControlName="searchType"  
+              value="name" 
+              class="radio-input"
+              />
+              Buscar por Nombre 
+          </label> 
+          <label> 
+            <input  
+              type="radio"  
+              formControlName="searchType"  
+              value="id" 
+              class="radio-input" 
+            /> 
+            Buscar por ID 
+          </label> 
+        </div> 
+      
+        @if (advancedSearchForm.value.searchType === 'name') { 
+          <div class="form-field"> 
+            <input  
+              type="text"  
+              formControlName="pokemonName" 
+              placeholder="Ej: charizard, dragonite" 
+              class="form-control" 
+            /> 
+            @if (advancedSearchForm.get('pokemonName')?.hasError('required') && 
+      advancedSearchForm.get('pokemonName')?.touched) { 
+              <span class="error-message">El nombre es requerido</span> 
+            } 
+          </div> 
+        }
+        @if (advancedSearchForm.value.searchType === 'id') { 
+          <div class="form-field"> 
+            <input  
+              type="number"  
+              formControlName="pokemonId" 
+              placeholder="Ej: 1 a 1025" 
+              class="form-control" 
+            /> 
+            @if (advancedSearchForm.get('pokemonId')?.hasError('required') && 
+      advancedSearchForm.get('pokemonId')?.touched) { 
+              <span class="error-message">El ID es requerido</span> 
+            } 
+            @if (advancedSearchForm.get('pokemonId')?.hasError('min')) { 
+              <span class="error-message">El ID debe ser mayor a 0</span> 
+            } 
+            @if (advancedSearchForm.get('pokemonId')?.hasError('max')) { 
+              <span class="error-message">El ID debe ser menor o igual a 1025</span> 
+            } 
+          </div> 
+        } 
+      
+        <button  
+          type="submit"  
+          [disabled]="advancedSearchForm.invalid" 
+          class="submit-button" 
+        > 
+          Buscar Pokémon 
+        </button> 
+      </form>
+      <form (ngSubmit)="onSubmitSignalSearch()" class="signal-search-form"> 
+      <h3>   Búsqueda Ultra Avanzada (Signal Forms)</h3> 
+      
+      <div class="signal-form-group"> 
+        <label class="signal-radio-label"> 
+          <input 
+            type="radio" 
+            [checked]="signalSearchType() === 'name'" 
+            (change)="updateSignalSearchType('name')" 
+            class="signal-radio-input" 
+          /> 
+          <span class="radio-text">Buscar por Nombre</span> 
+    </label> 
+        <label class="signal-radio-label"> 
+          <input 
+            type="radio" 
+            [checked]="signalSearchType() === 'id'" 
+            (change)="updateSignalSearchType('id')" 
+            class="signal-radio-input" 
+          /> 
+          <span class="radio-text">Buscar por ID</span> 
+        </label> 
+      </div> 
+    
+      @if (signalSearchType() === 'name') { 
+        <div class="signal-form-field"> 
+          <input 
+            type="text" 
+            [value]="signalPokemonName()" 
+            (input)="updateSignalPokemonName($any($event.target).value)" 
+            placeholder="Ej: charizard, dragonite, pikachu" 
+            class="signal-form-control" 
+          /> 
+        </div> 
+      } 
+    
+      @if (signalSearchType() === 'id') { 
+        <div class="signal-form-field"> 
+          <input 
+            type="number" 
+            [value]="signalPokemonId()"
+            (input)="updateSignalPokemonId($any($event.target).value)" 
+            placeholder="Ej: 1 a 1025" 
+            class="signal-form-control" 
+          /> 
+        </div> 
+      }
+
+      @if (signalFormErrors().length > 0) { 
+        <div class="signal-errors"> 
+          @for (error of signalFormErrors(); track error) { 
+            <span class="signal-error-message">{{ error }}</span> 
+          } 
+        </div> 
+      } 
+    
+      <button 
+        type="submit" 
+        [disabled]="!isSignalFormValid()" 
+        class="signal-submit-button" 
+      > 
+                Buscar con Signals 
+      </button> 
+    </form>
 
   @if (state().pokemon) {
     <div class="d-flex justify-content-center">

@@ -36,6 +36,61 @@
       transform: scale(0.98);
     }
 
+    .search-form { 
+      margin: 20px 0; 
+      padding: 15px; 
+      background-color: #f9f9f9; 
+      border-radius: 8px; 
+      border: 1px solid #e0e0e0; 
+      }
+
+      .search-input-group { 
+      display: flex; 
+      gap: 10px; 
+      align-items: center; 
+      }
+
+      .search-input { 
+      flex: 1; 
+      padding: 10px 15px; 
+      border: 1px solid #ddd; 
+      border-radius: 4px; 
+      font-size: 14px; 
+      font-family: Arial, sans-serif; 
+      transition: border-color 0.3s ease; 
+      }
+
+    .search-input:focus { 
+      outline: none;
+      border-color: #ff5a3f; 
+      box-shadow: 0 0 0 2px rgba(255, 90, 63, 0.1); 
+    }
+
+    .search-input::placeholder { 
+      color: #999; 
+    }
+
+    .search-button { 
+      padding: 10px 25px; 
+      background-color: #4CAF50; 
+      color: white; 
+      border: none; 
+      border-radius: 4px; 
+      cursor: pointer; 
+      font-size: 14px; 
+      font-weight: bold; 
+      transition: background-color 0.3s ease; 
+      white-space: nowrap; 
+    } 
+
+    .search-button:hover { 
+      background-color: #45a049; 
+    }
+
+    .search-button:active { 
+      transform: scale(0.98); 
+    }
+
     .pokemon-card {
       border: 5px solid #e4c40d;
       border-radius: 8px;
@@ -114,3 +169,217 @@
       margin-bottom: 10px;
       text-align: center;
     }
+
+    .advanced-search-form { 
+      margin: 30px 0; 
+      padding: 20px; 
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+      border-radius: 8px; 
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2); 
+    } 
+      .advanced-search-form h3 { 
+      margin: 0 0 15px 0; 
+      color: white; 
+      font-size: 18px; 
+      text-align: center; 
+    } 
+      .form-group { 
+      display: flex; 
+      gap: 25px; 
+      margin-bottom: 20px; 
+      justify-content: center; 
+      flex-wrap: wrap; 
+    } 
+
+    .form-group label { 
+      display: flex; 
+      align-items: center; 
+      gap: 8px; 
+      color: white; 
+      cursor: pointer; 
+      font-weight: 500; 
+    } 
+      .radio-input { 
+      cursor: pointer; 
+      width: 18px; 
+      height: 18px; 
+      accent-color: #4CAF50; 
+    } 
+      .form-field { 
+      margin-bottom: 15px; 
+    } 
+      .form-control { 
+      width: 100%; 
+      padding: 12px 15px; 
+      border: 2px solid transparent; 
+      border-radius: 4px; 
+      font-size: 14px; 
+      font-family: Arial, sans-serif; 
+      transition: all 0.3s ease;
+      background-color: white; 
+    }
+
+    .form-control:focus { 
+      outline: none; 
+      border-color: #4CAF50; 
+      box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2); 
+    } 
+      .form-control::placeholder { 
+      color: #bbb; 
+    } 
+      .error-message { 
+      display: block; 
+      color: #ffeb3b; 
+      font-size: 12px; 
+      margin-top: 5px; 
+      font-weight: bold; 
+    } 
+      .submit-button { 
+      width: 100%; 
+      padding: 12px 20px; 
+      background-color: #4CAF50; 
+      color: white; 
+      border: none; 
+      border-radius: 4px; 
+      cursor: pointer; 
+      font-size: 14px; 
+      font-weight: bold; 
+      transition: all 0.3s ease; 
+    }
+      .submit-button:hover:not(:disabled) { 
+      background-color: #45a049; 
+      transform: translateY(-2px); 
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    } 
+      .submit-button:active:not(:disabled) { 
+      transform: translateY(0); 
+    } 
+      .submit-button:disabled { 
+      background-color: #ccc; 
+      cursor: not-allowed; 
+      opacity: 0.6; 
+    }
+
+    .signal-search-form { 
+margin: 40px 0; 
+padding: 25px; 
+background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%); 
+border-radius: 12px; 
+box-shadow: 0 6px 20px rgba(255, 107, 107, 0.3); 
+border: 2px solid rgba(255, 255, 255, 0.1); 
+} 
+.signal-search-form h3 { 
+margin: 0 0 20px 0; 
+color: white; 
+font-size: 20px; 
+text-align: center; 
+text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); 
+} 
+.signal-form-group { 
+display: flex; 
+gap: 30px; 
+margin-bottom: 25px; 
+justify-content: center; 
+flex-wrap: wrap; 
+} 
+.signal-radio-label { 
+display: flex;
+align-items: center; 
+gap: 10px; 
+color: white; 
+cursor: pointer; 
+font-weight: 600; 
+padding: 8px 12px; 
+border-radius: 20px; 
+transition: all 0.3s ease; 
+background: rgba(255, 255, 255, 0.1); 
+backdrop-filter: blur(10px); 
+} 
+.signal-radio-label:hover { 
+background: rgba(255, 255, 255, 0.2); 
+transform: translateY(-2px); 
+} 
+.signal-radio-input { 
+cursor: pointer; 
+width: 20px; 
+height: 20px; 
+accent-color: #ffd93d; 
+filter: brightness(1.2); 
+} 
+.radio-text { 
+font-size: 15px; 
+user-select: none; 
+}
+.signal-form-field { 
+margin-bottom: 20px; 
+} 
+.signal-form-control { 
+width: 100%; 
+padding: 15px 18px; 
+border: 3px solid transparent; 
+border-radius: 8px; 
+font-size: 16px; 
+font-family: Arial, sans-serif; 
+font-weight: 500; 
+transition: all 0.3s ease; 
+background-color: white; 
+box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
+} 
+.signal-form-control:focus { 
+outline: none; 
+border-color: #ffd93d; 
+box-shadow: 0 0 0 4px rgba(255, 217, 61, 0.3); 
+transform: scale(1.02); 
+} 
+.signal-form-control::placeholder { 
+color: #999; 
+font-weight: 400; 
+}
+.signal-errors { 
+margin-bottom: 20px; 
+padding: 12px; 
+background: rgba(255, 255, 255, 0.9); 
+border-radius: 6px; 
+border-left: 4px solid #ff6b6b; 
+} 
+.signal-error-message { 
+display: block; 
+color: #d32f2f; 
+font-size: 13px; 
+font-weight: bold; 
+margin-bottom: 4px; 
+} 
+.signal-error-message:last-child { 
+margin-bottom: 0; 
+} 
+.signal-submit-button { 
+width: 100%; 
+padding: 15px 25px; 
+background: linear-gradient(135deg, #ffd93d 0%, #ffb347 100%); 
+color: #333; 
+border: none; 
+border-radius: 8px; 
+cursor: pointer;
+font-size: 16px; 
+font-weight: bold; 
+transition: all 0.3s ease; 
+text-transform: uppercase; 
+letter-spacing: 1px; 
+box-shadow: 0 4px 15px rgba(255, 217, 61, 0.4); 
+} 
+.signal-submit-button:hover:not(:disabled) { 
+background: linear-gradient(135deg, #ffb347 0%, #ff8c00 100%); 
+transform: translateY(-3px); 
+box-shadow: 0 6px 20px rgba(255, 217, 61, 0.6); 
+} 
+.signal-submit-button:active:not(:disabled) { 
+transform: translateY(-1px); 
+box-shadow: 0 2px 10px rgba(255, 217, 61, 0.4); 
+} 
+.signal-submit-button:disabled { 
+background: #ccc; 
+cursor: not-allowed; 
+opacity: 0.6; 
+transform: none; 
+box-shadow: none; 
+}
